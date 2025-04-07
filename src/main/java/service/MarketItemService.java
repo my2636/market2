@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// предполагается возможность торговой площадки для нескольких продавцов
+
 public class MarketItemService implements ItemService {
 
     ItemRepository marketItemRepository;

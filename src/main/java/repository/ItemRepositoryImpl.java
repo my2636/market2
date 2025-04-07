@@ -3,7 +3,6 @@ package repository;
 import entity.Item;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,7 +35,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public void delete(Item item) {
-
+        items.remove(item);
     }
 
     @Override

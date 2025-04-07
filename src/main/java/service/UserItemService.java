@@ -11,7 +11,7 @@ public class UserItemService implements ItemService {
 
     @Override
     public void addList(List<Item> addingList) {
-
+        userItemRepository.addItemList(addingList);
     }
 
     @Override
@@ -32,8 +32,10 @@ public class UserItemService implements ItemService {
 
     @Override
     public void deleteByNumbers(int... itemNumbers) {
+        List<Item> items = userItemRepository.getList();
         for (int i : itemNumbers) {
-            userItemRepository.delete(userItemRepository.getList().get(i - 1));
+            Item item = items.get(i - 1);
+            userItemRepository.delete(item);
         }
     }
 
