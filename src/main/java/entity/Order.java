@@ -7,15 +7,17 @@ import java.util.List;
 
 public class Order {
     private UUID id;
+    private UUID userStorageId;
     private OrderStatus status;
-    private String address;
+    private UUID deliveryPointId;
     private List<Item> itemList;
     private double totalPrice;
 
-    public Order(String address, List<Item> itemList) {
+    public Order(UUID userStorageId, UUID deliveryPointId, List<Item> itemList) {
         this.id = UUID.randomUUID();
+        this.userStorageId = userStorageId;
         this.status = OrderStatus.CREATED;
-        this.address = address;
+        this.deliveryPointId = deliveryPointId;
         this.itemList = itemList;
         this.totalPrice = itemList
                 .stream()
@@ -31,8 +33,8 @@ public class Order {
         return status;
     }
 
-    public String getAddress() {
-        return address;
+    public UUID getDeliveryPointId() {
+        return deliveryPointId;
     }
 
     public List<Item> getOrderItemList() {
@@ -43,14 +45,10 @@ public class Order {
         this.status = status;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     @Override
     public String toString() {
-        return  "\nСтатус: " + status +
-                "\nАдрес: " + address +
+        return "\nСтатус: " + status +
+                "\nАдрес: " + deliveryPointId +
                 "\nСписок товаров: " + itemList +
                 "\nСумма заказа: " + totalPrice;
     }
