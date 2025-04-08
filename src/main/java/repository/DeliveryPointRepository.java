@@ -10,6 +10,8 @@ public interface DeliveryPointRepository {
 
     void addList(List<DeliveryPoint> deliveryPoints);
 
+    DeliveryPoint getByNumber(int number);
+
     List<DeliveryPoint> getList();
 
     void delete(DeliveryPoint deliveryPoint);

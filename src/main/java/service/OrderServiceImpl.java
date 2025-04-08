@@ -17,17 +17,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(UUID userStorageId, UUID deliveryPointId, List<Item> itemList) {
-        orderRepository.addOrder(new Order(userStorageId, deliveryPointId, itemList));
+    public void createOrder(UUID userId, UUID deliveryPointId, List<Item> itemList) {
+        orderRepository.addOrder(new Order(userId, deliveryPointId, itemList));
     }
 
     @Override
-    public OrderStatus checkStatus(Order order) {
-        return order.getStatus();
+    public void showOrdersByUserId(UUID userId) {
+
     }
 
     @Override
-    public void changeStatus(Order order, OrderStatus newStatus) {
+    public Order getOrderByNumber(int number) {
+        return orderRepository.getByNumber(number);
+    }
 
+    @Override
+    public List<Order> getOrdersByUserId(UUID userId) {
+        return List.of();
     }
 }

@@ -8,7 +8,9 @@ import java.util.List;
 public interface DeliveryPointService {
     void addDeliveryPoints(DeliveryPoint... deliveryPoints);
 
-    void showItems();
+    void showList();
+
+    DeliveryPoint getByNumber(int number);
 
     List<DeliveryPoint> getList();
 

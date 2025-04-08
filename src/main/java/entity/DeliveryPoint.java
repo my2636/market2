@@ -21,6 +21,10 @@ public class DeliveryPoint {
         return city;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public void setLocalAddress(String localAddress) {
         this.localAddress = localAddress;
     }

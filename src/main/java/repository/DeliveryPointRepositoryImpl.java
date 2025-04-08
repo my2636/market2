@@ -1,10 +1,8 @@
 package repository;
 
 import entity.DeliveryPoint;
-import entity.Item;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DeliveryPointRepositoryImpl implements DeliveryPointRepository{
@@ -19,10 +17,21 @@ public class DeliveryPointRepositoryImpl implements DeliveryPointRepository{
     public void addList(List<DeliveryPoint> deliveryPoints) {
         points.addAll(deliveryPoints);
     }
+    @Override
+    public DeliveryPoint getByNumber(int number) {
+        return points.get(number - 1);
+    }
 
     @Override
     public List<DeliveryPoint> getList() {
         return points;
+    }
+
+    public List<DeliveryPoint> getListByCity(String city) {
+        return points
+                .stream()
+                .filter(x -> city.equals(x.getCity()))
+                .toList();
     }
 
     @Override

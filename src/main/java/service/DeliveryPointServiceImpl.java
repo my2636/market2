@@ -19,7 +19,7 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
         deliveryPointRepository.addList(Arrays.asList(deliveryPoints));
     }
 
-    public void showItems() {
+    public void showList() {
         List<DeliveryPoint> items = deliveryPointRepository.getList();
         if (items.isEmpty()) {
             System.out.println("Список пуст");
@@ -27,6 +27,10 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
         for (DeliveryPoint i : items) {
             System.out.println("\n" + (items.indexOf(i) + 1) + ". " + i.toString());
         }
+    }
+
+    public DeliveryPoint getByNumber(int number) {
+        return deliveryPointRepository.getByNumber(number);
     }
 
     @Override

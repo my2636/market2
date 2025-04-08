@@ -11,6 +11,8 @@ public interface ItemService {
 
     List<Item> getList();
 
+    List<Item> getListByNumbers(int... itemNumbers);
+
     void deleteByNumbers(int... itemNumbers);
 
     void deleteList(List<Item> deletingList);

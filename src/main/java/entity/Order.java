@@ -7,15 +7,15 @@ import java.util.List;
 
 public class Order {
     private UUID id;
-    private UUID userStorageId;
+    private UUID userId;
     private OrderStatus status;
     private UUID deliveryPointId;
     private List<Item> itemList;
     private double totalPrice;
 
-    public Order(UUID userStorageId, UUID deliveryPointId, List<Item> itemList) {
+    public Order(UUID deliveryPointId, UUID userId, List<Item> itemList) {
         this.id = UUID.randomUUID();
-        this.userStorageId = userStorageId;
+        this.userId = userId;
         this.status = OrderStatus.CREATED;
         this.deliveryPointId = deliveryPointId;
         this.itemList = itemList;
@@ -48,7 +48,7 @@ public class Order {
     @Override
     public String toString() {
         return "\nСтатус: " + status +
-                "\nАдрес: " + deliveryPointId +
+                "\nПункт выдачи: " + deliveryPointId +
                 "\nСписок товаров: " + itemList +
                 "\nСумма заказа: " + totalPrice;
     }

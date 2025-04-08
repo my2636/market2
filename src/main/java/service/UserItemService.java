@@ -4,10 +4,21 @@ import entity.Item;
 import repository.ItemRepository;
 import repository.ItemRepositoryImpl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class UserItemService implements ItemService {
-    ItemRepository userItemRepository = new ItemRepositoryImpl();
+    ItemRepository userItemRepository;
+
+    public UserItemService(UUID userId) {
+        this.userItemRepository = new ItemRepositoryImpl();
+
+    }
+
+    public UserItemService() {
+
+    }
 
     @Override
     public void addList(List<Item> addingList) {
@@ -28,6 +39,20 @@ public class UserItemService implements ItemService {
     @Override
     public List<Item> getList() {
         return List.of();
+    }
+
+    @Override
+    public List<Item> getListByNumbers(int... itemNumbers) {
+        List<Item> items = userItemRepository.getList();
+        List<Item> chosenItems = new ArrayList<>();
+        for (int i : itemNumbers) {
+            if (i > 0 && i <= items.size()) {
+                chosenItems.add(items.get(i - 1));
+            } else {
+                System.out.println("Неверный индекс: " + i);
+            }
+        }
+        return chosenItems;
     }
 
     @Override

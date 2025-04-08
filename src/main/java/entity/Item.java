@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class Item {
     private UUID id;
+    private UUID userId;
     private String name;
     private Category category;
     private double price;
@@ -28,6 +29,14 @@ public class Item {
 
     public Category getCategory() {
         return category;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     public double getPrice() {

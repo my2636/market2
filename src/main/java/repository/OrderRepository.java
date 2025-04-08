@@ -9,5 +9,7 @@ public interface OrderRepository {
 
     Order getById(UUID orderId);
 
+    Order getByNumber(int orderNumber);
+
     void deleteById(UUID orderId);
 }
