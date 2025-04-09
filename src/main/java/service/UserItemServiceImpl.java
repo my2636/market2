@@ -5,29 +5,19 @@ import repository.ItemRepository;
 import repository.ItemRepositoryImpl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-// предполагается возможность торговой площадки для нескольких продавцов
+public class UserItemServiceImpl implements ItemService {
+    ItemRepository userItemRepository = new ItemRepositoryImpl();
 
-public class MarketItemService implements ItemService {
-
-    ItemRepository marketItemRepository;
-
-    public MarketItemService() {
-        this.marketItemRepository = new ItemRepositoryImpl();
-    }
-
-    public void addItems(Item... items) {
-        marketItemRepository.addItemList(Arrays.asList(items));
-    }
-
+    @Override
     public void addList(List<Item> addingList) {
-        marketItemRepository.addItemList(addingList);
+        userItemRepository.addItemList(addingList);
     }
 
+    @Override
     public void showItems() {
-        List<Item> items = marketItemRepository.getList();
+        List<Item> items = userItemRepository.getList();
         if (items.isEmpty()) {
             System.out.println("Список пуст");
         }
@@ -36,13 +26,14 @@ public class MarketItemService implements ItemService {
         }
     }
 
-
-    public List getList() {
-        return marketItemRepository.getList();
+    @Override
+    public List<Item> getList() {
+        return List.of();
     }
 
+    @Override
     public List<Item> getListByNumbers(int... itemNumbers) {
-        List<Item> items = marketItemRepository.getList();
+        List<Item> items = userItemRepository.getList();
         List<Item> chosenItems = new ArrayList<>();
         for (int i : itemNumbers) {
             if (i > 0 && i <= items.size()) {
@@ -54,20 +45,17 @@ public class MarketItemService implements ItemService {
         return chosenItems;
     }
 
-
-    public void delete(Item item) {
-        marketItemRepository.delete(item);
-    }
-
+    @Override
     public void deleteByNumbers(int... itemNumbers) {
+        List<Item> items = userItemRepository.getList();
         for (int i : itemNumbers) {
-            marketItemRepository.delete(marketItemRepository.getList().get(i - 1));
+            Item item = items.get(i - 1);
+            userItemRepository.delete(item);
         }
     }
 
+    @Override
     public void deleteList(List<Item> deletingList) {
-        marketItemRepository.deleteList(deletingList);
+        userItemRepository.deleteList(deletingList);
     }
-
-
 }

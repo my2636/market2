@@ -9,15 +9,15 @@ import java.util.*;
 
 public class Main {
     static UserService userService = new UserServiceImpl();
-    static UserItemService userItemService = new UserItemService();
-    static MarketItemService marketItemService = new MarketItemService();
+    static UserItemServiceImpl userItemServiceImpl = new UserItemServiceImpl();
+    static MarketItemServiceImpl marketItemServiceImpl = new MarketItemServiceImpl();
     static OrderService orderService = new OrderServiceImpl();
     static DeliveryPointService deliveryPointService = new DeliveryPointServiceImpl();
     static User user = auth();
 
     public static void main(String[] args) {
 
-        marketItemService.addItems(new Item("Чай зеленый", Category.FOOD, 60.7),
+        marketItemServiceImpl.addItems(new Item("Чай зеленый", Category.FOOD, 60.7),
                 new Item("Плед мягкий пушистый", Category.HOME, 260.5),
                 new Item("Кот домашний", Category.HOME, 5000),
                 new Item("Плащ демисезонный", Category.CLOTHES, 4000),
@@ -40,14 +40,19 @@ public class Main {
         while (cycle) {
             Scanner sc = new Scanner(System.in);
 
-            System.out.println("\nВыберите опцию: \n1. Каталог \n2. Корзина \n3. Заказы \n4. Выход\n");
+            System.out.println("\nВыберите опцию: \n1. Каталог \n2. Корзина \n3. Заказы \n0. Выход\n");
             String input = sc.nextLine();
 
             switch (input) {
+                case "0":
+                    System.out.println("Выход из программы");
+                    cycle = false;
+                    break;
+
                 case "1":
                     while (true) {
                         System.out.println("\nКаталог:");
-                        marketItemService.showItems();
+                        marketItemServiceImpl.showItems();
                         System.out.println("________________________ \n1. Добавить товары в корзину \n0. Назад в меню");
                         String catalogInput = sc.nextLine();
 
@@ -58,8 +63,8 @@ public class Main {
                             System.out.println("\nВведите номера товаров (через пробел): ");
                             try {
                                 int[] numbers = getIntArray(sc.nextLine());
-                                List<Item> items = marketItemService.getListByNumbers(numbers);
-                                userItemService.addList(items);
+                                List<Item> items = marketItemServiceImpl.getListByNumbers(numbers);
+                                userItemServiceImpl.addList(items);
                                 System.out.println("\nТовары добавлены:");
                                 System.out.println(items + "\n");
 
@@ -74,7 +79,7 @@ public class Main {
                 case "2":
                     while (true) {
                         System.out.println("\nКорзина:");
-                        userItemService.showItems();
+                        userItemServiceImpl.showItems();
                         System.out.println("________________________ \n1. Удалить товары \n2. Сделать заказ \n0. Назад в меню");
                         String userStorageInput = sc.nextLine();
                         if ("0".equals(userStorageInput)) {
@@ -83,7 +88,7 @@ public class Main {
                             System.out.println("\nВведите номера товаров (через пробел): ");
                             try {
                                 int[] numbers = getIntArray(sc.nextLine());
-                                userItemService.deleteByNumbers(numbers);
+                                userItemServiceImpl.deleteByNumbers(numbers);
                                 System.out.println("\nТовары удалены.");
 
                             } catch (Exception e) {
@@ -93,13 +98,13 @@ public class Main {
                             System.out.println("\nВведите номера позиций для заказа (через пробел): ");
                             try {
                                 int[] numbers = getIntArray(sc.nextLine());
-                                List<Item> orderList = userItemService.getListByNumbers(numbers);
+                                List<Item> orderList = userItemServiceImpl.getListByNumbers(numbers);
                                 System.out.println("Введите номер пункта доставки: ");
                                 deliveryPointService.showList();
                                 int pointNumber = Integer.parseInt(sc.nextLine());
                                 UUID pointId = deliveryPointService.getByNumber(pointNumber).getId();
                                 orderService.createOrder(user.getId(), pointId, orderList);
-                                userItemService.deleteList(orderList);
+                                userItemServiceImpl.deleteList(orderList);
                                 System.out.println("\nЗаказ создан.");
 
                             } catch (Exception e) {
@@ -134,16 +139,13 @@ public class Main {
                                 System.out.println(e.getMessage());
                             }
                         } else if ("2".equals(catalogInput)) {
+                            System.out.println("\nВведите номер заказа: ");
                             int orderNumber = Integer.parseInt(sc.nextLine());
                             orderService.getOrderByNumber(orderNumber - 1).setStatus(OrderStatus.CANCELED);
+                            System.out.println("\nЗаказ отменен.");
                         }
                     }
 
-                    break;
-
-                case "4":
-                    System.out.println("Выход из программы");
-                    cycle = false;
                     break;
 
                 default:

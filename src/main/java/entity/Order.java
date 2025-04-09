@@ -6,14 +6,14 @@ import java.util.UUID;
 import java.util.List;
 
 public class Order {
-    private UUID id;
-    private UUID userId;
+    private final UUID id;
+    private final UUID userId;
     private OrderStatus status;
-    private UUID deliveryPointId;
-    private List<Item> itemList;
-    private double totalPrice;
+    private final UUID deliveryPointId;
+    private final List<Item> itemList;
+    private final double totalPrice;
 
-    public Order(UUID deliveryPointId, UUID userId, List<Item> itemList) {
+    public Order(UUID userId, UUID deliveryPointId, List<Item> itemList) {
         this.id = UUID.randomUUID();
         this.userId = userId;
         this.status = OrderStatus.CREATED;
@@ -41,7 +41,7 @@ public class Order {
         return deliveryPointId;
     }
 
-    public List<Item> getOrderItemList() {
+    public List<Item> getItemList() {
         return itemList;
     }
 
@@ -49,12 +49,16 @@ public class Order {
         this.status = status;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
     @Override
     public String toString() {
-        return "\nСтатус: " + status +
-                "\nПользователь: " + userId +
-                "\nПункт выдачи: " + deliveryPointId +
-                "\nСписок товаров: " + itemList +
-                "\nСумма заказа: " + totalPrice;
+        return "\nСтатус: " + getStatus() +
+                "\nПользователь: " + getUserId() +
+                "\nПункт выдачи: " + getDeliveryPointId() +
+                "\nСписок товаров: " + getItemList() +
+                "\nСумма заказа: " + getTotalPrice();
     }
 }
