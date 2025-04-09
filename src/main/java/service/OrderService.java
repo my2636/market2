@@ -15,4 +15,6 @@ public interface OrderService {
     Order getOrderByNumber(int number);
 
     List<Order> getOrdersByUserId(UUID userId);
+
+    List<Order> getOrders();
 }

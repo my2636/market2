@@ -27,8 +27,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getByNameOrAdd(String name) {
         if (users.isEmpty()) {
-            users.add(new User(name));
-            System.out.println("Добавлен пользователь: " + name);
+            User user = new User(name);
+            users.add(user);
+            System.out.println("Добавлен пользователь: " + name + "\nID: " + user.getId());
         }
         return users
                 .stream()

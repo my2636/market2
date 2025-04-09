@@ -40,13 +40,13 @@ public class Main {
         while (cycle) {
             Scanner sc = new Scanner(System.in);
 
-            System.out.println("\nВыберите опцию: \n1. Каталог \n2. Корзина \n3. Заказы \n4. Выход");
+            System.out.println("\nВыберите опцию: \n1. Каталог \n2. Корзина \n3. Заказы \n4. Выход\n");
             String input = sc.nextLine();
 
             switch (input) {
                 case "1":
                     while (true) {
-                        System.out.println("Каталог:");
+                        System.out.println("\nКаталог:");
                         marketItemService.showItems();
                         System.out.println("________________________ \n1. Добавить товары в корзину \n0. Назад в меню");
                         String catalogInput = sc.nextLine();
@@ -73,7 +73,7 @@ public class Main {
 
                 case "2":
                     while (true) {
-                        System.out.println("Корзина:");
+                        System.out.println("\nКорзина:");
                         userItemService.showItems();
                         System.out.println("________________________ \n1. Удалить товары \n2. Сделать заказ \n0. Назад в меню");
                         String userStorageInput = sc.nextLine();
@@ -100,7 +100,7 @@ public class Main {
                                 UUID pointId = deliveryPointService.getByNumber(pointNumber).getId();
                                 orderService.createOrder(user.getId(), pointId, orderList);
                                 userItemService.deleteList(orderList);
-                                System.out.println("\nЗаказ создан.\n");
+                                System.out.println("\nЗаказ создан.");
 
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
@@ -114,7 +114,9 @@ public class Main {
 
                 case "3":
                     while (true) {
-                        System.out.println("Заказы:");
+                        System.out.println("\nЗаказы:");
+                        System.out.println(orderService.getOrders());
+                        System.out.println("byId:\n");
                         orderService.showOrdersByUserId(user.getId());
                         System.out.println("________________________ \n1. Получить заказ \n2. Отменить заказ \n0. Назад в меню");
                         String catalogInput = sc.nextLine();
@@ -125,7 +127,7 @@ public class Main {
                             System.out.println("\nВведите номер заказа: ");
                             try {
                                 int orderNumber = Integer.parseInt(sc.nextLine());
-                                orderService.getOrderByNumber(orderNumber).setStatus(OrderStatus.COMPLETED);
+                                orderService.getOrderByNumber(orderNumber - 1).setStatus(OrderStatus.COMPLETED);
                                 System.out.println("\nЗаказ получен.");
 
                             } catch (Exception e) {
@@ -133,13 +135,14 @@ public class Main {
                             }
                         } else if ("2".equals(catalogInput)) {
                             int orderNumber = Integer.parseInt(sc.nextLine());
-                            orderService.getOrderByNumber(orderNumber).setStatus(OrderStatus.CANCELED);
+                            orderService.getOrderByNumber(orderNumber - 1).setStatus(OrderStatus.CANCELED);
                         }
                     }
 
                     break;
 
                 case "4":
+                    System.out.println("Выход из программы");
                     cycle = false;
                     break;
 

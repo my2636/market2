@@ -29,7 +29,15 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+
+    @Override
     public void deleteById(UUID orderId) {
         orders.removeIf(x -> orderId.equals(x.getId()));
     }
+
+
 }

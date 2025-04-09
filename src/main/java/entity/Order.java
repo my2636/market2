@@ -29,6 +29,10 @@ public class Order {
         return id;
     }
 
+    public UUID getUserId() {
+        return userId;
+    }
+
     public OrderStatus getStatus() {
         return status;
     }
@@ -48,6 +52,7 @@ public class Order {
     @Override
     public String toString() {
         return "\nСтатус: " + status +
+                "\nПользователь: " + userId +
                 "\nПункт выдачи: " + deliveryPointId +
                 "\nСписок товаров: " + itemList +
                 "\nСумма заказа: " + totalPrice;

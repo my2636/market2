@@ -2,6 +2,7 @@ package repository;
 
 import entity.Order;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface OrderRepository {
@@ -10,6 +11,8 @@ public interface OrderRepository {
     Order getById(UUID orderId);
 
     Order getByNumber(int orderNumber);
+
+    List<Order> getOrders();
 
     void deleteById(UUID orderId);
 }
