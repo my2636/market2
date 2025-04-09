@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class ItemRepositoryImpl implements ItemRepository {
-    List<Item> items = new ArrayList<>();
+    List<Item> items = new ArrayList<>(0);
 
     @Override
     public void addItem(Item item) {

@@ -5,17 +5,15 @@ import enums.Category;
 import enums.OrderStatus;
 import service.*;
 
-import java.util.UUID;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-    static User user = auth();
     static UserService userService = new UserServiceImpl();
     static UserItemService userItemService = new UserItemService();
     static MarketItemService marketItemService = new MarketItemService();
     static OrderService orderService = new OrderServiceImpl();
     static DeliveryPointService deliveryPointService = new DeliveryPointServiceImpl();
+    static User user = auth();
 
     public static void main(String[] args) {
 
@@ -35,7 +33,6 @@ public class Main {
         );
 
         options();
-
     }
 
     public static void options() {
@@ -49,6 +46,7 @@ public class Main {
             switch (input) {
                 case "1":
                     while (true) {
+                        System.out.println("Каталог:");
                         marketItemService.showItems();
                         System.out.println("________________________ \n1. Добавить товары в корзину \n0. Назад в меню");
                         String catalogInput = sc.nextLine();
@@ -57,13 +55,13 @@ public class Main {
                             break;
 
                         } else if ("1".equals(catalogInput)) {
-                            System.out.println("\nВведите номера товаров: ");
+                            System.out.println("\nВведите номера товаров (через пробел): ");
                             try {
                                 int[] numbers = getIntArray(sc.nextLine());
                                 List<Item> items = marketItemService.getListByNumbers(numbers);
-                                System.out.println(items);
                                 userItemService.addList(items);
-                                System.out.println("\nТовары добавлены.");
+                                System.out.println("\nТовары добавлены:");
+                                System.out.println(items + "\n");
 
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
@@ -75,13 +73,14 @@ public class Main {
 
                 case "2":
                     while (true) {
+                        System.out.println("Корзина:");
                         userItemService.showItems();
                         System.out.println("________________________ \n1. Удалить товары \n2. Сделать заказ \n0. Назад в меню");
                         String userStorageInput = sc.nextLine();
                         if ("0".equals(userStorageInput)) {
                             break;
                         } else if ("1".equals(userStorageInput)) {
-                            System.out.println("\nВведите номера товаров: ");
+                            System.out.println("\nВведите номера товаров (через пробел): ");
                             try {
                                 int[] numbers = getIntArray(sc.nextLine());
                                 userItemService.deleteByNumbers(numbers);
@@ -91,7 +90,7 @@ public class Main {
                                 System.out.println(e.getMessage());
                             }
                         } else if ("2".equals(userStorageInput)) {
-                            System.out.println("\nВведите номера позиций для заказа: ");
+                            System.out.println("\nВведите номера позиций для заказа (через пробел): ");
                             try {
                                 int[] numbers = getIntArray(sc.nextLine());
                                 List<Item> orderList = userItemService.getListByNumbers(numbers);
@@ -100,7 +99,8 @@ public class Main {
                                 int pointNumber = Integer.parseInt(sc.nextLine());
                                 UUID pointId = deliveryPointService.getByNumber(pointNumber).getId();
                                 orderService.createOrder(user.getId(), pointId, orderList);
-                                System.out.println("\nЗаказ создан.");
+                                userItemService.deleteList(orderList);
+                                System.out.println("\nЗаказ создан.\n");
 
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
@@ -114,6 +114,7 @@ public class Main {
 
                 case "3":
                     while (true) {
+                        System.out.println("Заказы:");
                         orderService.showOrdersByUserId(user.getId());
                         System.out.println("________________________ \n1. Получить заказ \n2. Отменить заказ \n0. Назад в меню");
                         String catalogInput = sc.nextLine();
@@ -153,28 +154,19 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Напишите Ваше имя: ");
         String name = sc.nextLine();
-        User user = userService.getByName(name);
-
-        if (user != null) {
-            return user;
-        } else {
-            User newUser = new User(name);
-            userService.add(newUser);
-            return newUser;
-        }
+        return userService.getByNameOrAdd(name);
     }
 
     public static int[] getIntArray(String input) {
-        String[] numbersStr = input.split("[\\s,+]");
-        int[] numbersInt = new int[numbersStr.length];
-
+        String[] numbersStr = input.split("[,\\s+]");
+        List<Integer> numbersList = new ArrayList<>();
         for (int i = 0; i < numbersStr.length; i++) {
             try {
-                numbersInt[i] = Integer.parseInt(numbersStr[i]);
+                numbersList.add(Integer.parseInt(numbersStr[i].trim()));
             } catch (NumberFormatException e) {
                 System.err.println("Ввели некорректный номер товара.");
             }
         }
-        return numbersInt;
+        return numbersList.stream().mapToInt(Integer::intValue).toArray();
     }
 }

@@ -6,19 +6,9 @@ import repository.ItemRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class UserItemService implements ItemService {
-    ItemRepository userItemRepository;
-
-    public UserItemService(UUID userId) {
-        this.userItemRepository = new ItemRepositoryImpl();
-
-    }
-
-    public UserItemService() {
-
-    }
+    ItemRepository userItemRepository = new ItemRepositoryImpl();;
 
     @Override
     public void addList(List<Item> addingList) {

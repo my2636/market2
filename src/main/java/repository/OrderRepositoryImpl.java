@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class OrderRepositoryImpl implements OrderRepository {
-    List<Order> orders = new ArrayList<>();
+    List<Order> orders = new ArrayList<>(0);
 
     @Override
     public void addOrder(Order order) {

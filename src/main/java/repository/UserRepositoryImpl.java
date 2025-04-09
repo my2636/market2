@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
-public class UserRepositoryImpl implements UserRepository{
-    List<User> users = new ArrayList<>();
+public class UserRepositoryImpl implements UserRepository {
+    List<User> users = new ArrayList<>(0);
 
     @Override
     public void add(User user) {
@@ -25,12 +25,17 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public User getByName(String name) {
+    public User getByNameOrAdd(String name) {
+        if (users.isEmpty()) {
+            users.add(new User(name));
+            System.out.println("Добавлен пользователь: " + name);
+        }
         return users
                 .stream()
                 .filter(x -> name.equals(x.getName()))
                 .findFirst()
-                .orElse();
+                .orElse(null);
+
     }
 
     @Override

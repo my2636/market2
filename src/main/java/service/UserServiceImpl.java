@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getByName(String name) {
-        return userRepository.getByName(name);
+    public User getByNameOrAdd(String name) {
+        return userRepository.getByNameOrAdd(name);
     }
 
     @Override
