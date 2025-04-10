@@ -7,27 +7,21 @@ import repository.ItemRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserItemServiceImpl implements ItemService {
-    ItemRepository userItemRepository = new ItemRepositoryImpl();
 
-    @Override
+public class ItemServiceImpl implements ItemService {
+
+    ItemRepository marketItemRepository = new ItemRepositoryImpl();
+
     public void addList(List<Item> addingList) {
-        userItemRepository.addItemList(addingList);
+        marketItemRepository.addItemList(addingList);
     }
 
-    @Override
-    public void addItems(Item... items) {
-
-    }
-
-    @Override
     public List<Item> getList() {
-        return userItemRepository.getList();
+        return marketItemRepository.getList();
     }
 
-    @Override
     public List<Item> getListByNumbers(int... itemNumbers) {
-        List<Item> items = userItemRepository.getList();
+        List<Item> items = marketItemRepository.getList();
         List<Item> chosenItems = new ArrayList<>();
         for (int i : itemNumbers) {
             if (i > 0 && i <= items.size()) {
@@ -39,17 +33,13 @@ public class UserItemServiceImpl implements ItemService {
         return chosenItems;
     }
 
-    @Override
     public void deleteByNumbers(int... itemNumbers) {
-        List<Item> items = userItemRepository.getList();
         for (int i : itemNumbers) {
-            Item item = items.get(i - 1);
-            userItemRepository.delete(item);
+            marketItemRepository.delete(marketItemRepository.getList().get(i - 1));
         }
     }
 
-    @Override
     public void deleteList(List<Item> deletingList) {
-        userItemRepository.deleteList(deletingList);
+        marketItemRepository.deleteList(deletingList);
     }
 }

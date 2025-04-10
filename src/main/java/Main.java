@@ -11,8 +11,8 @@ import java.util.*;
 
 public class Main {
     static final UserService userService = new UserServiceImpl();
-    static final ItemService userItemServiceImpl = new UserItemServiceImpl();
-    static final MarketItemServiceImpl marketItemServiceImpl = new MarketItemServiceImpl();
+    static final ItemService userItemServiceImpl = new ItemServiceImpl();
+    static final ItemService marketItemServiceImpl = new ItemServiceImpl();
     static final OrderService orderService = new OrderServiceImpl();
     static final DeliveryPointService deliveryPointService = new DeliveryPointServiceImpl();
 
@@ -23,13 +23,14 @@ public class Main {
             return;
         }
 
-        marketItemServiceImpl.addItems(new Item("Чай зеленый", Category.FOOD, 60.7),
-                new Item("Плед мягкий пушистый", Category.HOME, 260.5),
-                new Item("Кот домашний", Category.HOME, 5000),
-                new Item("Плащ демисезонный", Category.CLOTHES, 4000),
-                new Item("Термочашка с двойными стенками", Category.HOME, 180.7)
+        List<Item> newItems = new ArrayList<>();
+        newItems.add(new Item("Чай зеленый", Category.FOOD, 60.7));
+        newItems.add(new Item("Плед мягкий пушистый", Category.HOME, 260.5));
+        newItems.add(new Item("Кот домашний", Category.HOME, 5000));
+        newItems.add(new Item("Плащ демисезонный", Category.CLOTHES, 4000));
+        newItems.add(new Item("Термочашка с двойными стенками", Category.HOME, 180.7));
 
-        );
+        marketItemServiceImpl.addList(newItems);
 
         deliveryPointService.addDeliveryPoints(new DeliveryPoint("Санкт-Петербург", "ул. Калинникова, 8"),
                 new DeliveryPoint("Санкт-Петербург", "ул. Кирпичная, 164"),

@@ -4,11 +4,9 @@ import entity.Item;
 
 import java.util.List;
 
-public interface ItemService extends Showable {
+public interface ItemService extends Showable<Item> {
 
     void addList(List<Item> addingList);
-
-    void addItems(Item... items);
 
     List<Item> getList();
 
