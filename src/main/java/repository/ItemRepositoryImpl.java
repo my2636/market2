@@ -4,28 +4,34 @@ import entity.Item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 public class ItemRepositoryImpl implements ItemRepository {
-    List<Item> items = new ArrayList<>(0);
+    private final List<Item> items = new ArrayList<>();
 
     @Override
     public void addItemList(List<Item> itemList) {
-        items.addAll(itemList);
+        if (itemList != null) {
+            items.addAll(itemList);
+        }
     }
 
     @Override
     public List<Item> getList() {
-        return items;
+        return items; // Возвращаем копию
     }
 
     @Override
     public void delete(Item item) {
-        items.remove(item);
+        if (item != null) {
+            items.remove(item);
+        }
     }
 
     @Override
     public void deleteList(List<Item> deletingItems) {
-        items.removeAll(deletingItems);
+        if (deletingItems != null) {
+            items.removeAll(deletingItems);
+        }
     }
 }

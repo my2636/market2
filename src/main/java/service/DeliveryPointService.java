@@ -5,14 +5,11 @@ import entity.Order;
 
 import java.util.List;
 
-public interface DeliveryPointService {
+public interface DeliveryPointService extends Showable<DeliveryPoint> {
     void addDeliveryPoints(DeliveryPoint... deliveryPoints);
-
-    void showList();
 
     DeliveryPoint getByNumber(int number);
 
     List<DeliveryPoint> getList();
 
-    void deletePoint(DeliveryPoint deliveryPoint);
 }

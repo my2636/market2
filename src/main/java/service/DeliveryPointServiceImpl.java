@@ -16,31 +16,21 @@ public class DeliveryPointServiceImpl implements DeliveryPointService {
 
     @Override
     public void addDeliveryPoints(DeliveryPoint... deliveryPoints) {
+        if (deliveryPoints == null || deliveryPoints.length == 0) {
+            throw new IllegalArgumentException("Delivery points array cannot be null or empty.");
+        }
         deliveryPointRepository.addList(Arrays.asList(deliveryPoints));
     }
 
-    public void showList() {
-        List<DeliveryPoint> items = deliveryPointRepository.getList();
-        if (items.isEmpty()) {
-            System.out.println("Список пуст");
-        }
-        for (DeliveryPoint i : items) {
-            System.out.println("\n" + (items.indexOf(i) + 1) + ". " + i.toString());
-        }
-    }
-
-    public DeliveryPoint getByNumber(int number) {
-        return deliveryPointRepository.getByNumber(number);
-    }
-
-    @Override
     public List<DeliveryPoint> getList() {
         return deliveryPointRepository.getList();
     }
 
-    @Override
-    public void deletePoint(DeliveryPoint deliveryPoint) {
-        deliveryPointRepository.delete(deliveryPoint);
+    public DeliveryPoint getByNumber(int number) {
+        if (number <= 0) {
+            throw new IllegalArgumentException("Number must be positive");
+        }
+        return deliveryPointRepository.getByNumber(number);
     }
 
 }

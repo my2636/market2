@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class DeliveryPoint {
@@ -9,8 +10,8 @@ public class DeliveryPoint {
 
     public DeliveryPoint(String city, String localAddress) {
         this.id = UUID.randomUUID();
-        this.city = city;
-        this.localAddress = localAddress;
+        this.city = Objects.requireNonNull(city, "City cannot be null"); // Проверка на null
+        this.localAddress = Objects.requireNonNull(localAddress, "Local address cannot be null");
     }
 
     public String getLocalAddress() {
@@ -23,6 +24,10 @@ public class DeliveryPoint {
 
     public UUID getId() {
         return id;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public void setLocalAddress(String localAddress) {

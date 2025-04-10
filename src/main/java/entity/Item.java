@@ -7,15 +7,17 @@ import java.util.UUID;
 
 public class Item {
     private UUID id;
-    private UUID userId;
     private String name;
     private Category category;
     private double price;
 
     public Item(String name, Category category, double price) {
         this.id = UUID.randomUUID();
-        this.name = name;
-        this.category = category;
+        this.name = Objects.requireNonNull(name, "Name cannot be null");
+        this.category = Objects.requireNonNull(category, "Category cannot be null");
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
         this.price = price;
     }
 
@@ -31,16 +33,15 @@ public class Item {
         return category;
     }
 
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
     public double getPrice() {
         return price;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        Item item = (Item) object;
+        return Double.compare(price, item.price) == 0 && Objects.equals(id, item.id) && Objects.equals(name, item.name) && category == item.category;
     }
 
     @Override
@@ -50,12 +51,7 @@ public class Item {
                 "\nЦена: " + price;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        Item item = (Item) object;
-        return Double.compare(price, item.price) == 0 && Objects.equals(id, item.id) && Objects.equals(name, item.name) && category == item.category;
-    }
+
 
     @Override
     public int hashCode() {

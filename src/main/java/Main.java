@@ -149,7 +149,7 @@ public class Main {
                             List<Item> orderList = userItemServiceImpl.getListByNumbers(numbers);
 
                             System.out.println("Введите номер пункта доставки: ");
-                            deliveryPointService.showList();
+                            deliveryPointService.showList(deliveryPointService.getList());
                             int pointNumber = Integer.parseInt(sc.nextLine());
                             UUID pointId = deliveryPointService.getByNumber(pointNumber).getId();
                             orderService.createOrder(user.getId(), pointId, orderList);
