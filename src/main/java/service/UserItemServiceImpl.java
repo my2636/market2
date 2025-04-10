@@ -16,19 +16,13 @@ public class UserItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void showItems() {
-        List<Item> items = userItemRepository.getList();
-        if (items.isEmpty()) {
-            System.out.println("Список пуст");
-        }
-        for (Item i : items) {
-            System.out.println("\n" + (items.indexOf(i) + 1) + ". " + i.toString());
-        }
+    public void addItems(Item... items) {
+
     }
 
     @Override
     public List<Item> getList() {
-        return List.of();
+        return userItemRepository.getList();
     }
 
     @Override

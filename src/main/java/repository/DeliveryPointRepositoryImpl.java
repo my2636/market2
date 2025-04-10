@@ -5,7 +5,7 @@ import entity.DeliveryPoint;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveryPointRepositoryImpl implements DeliveryPointRepository{
+public class DeliveryPointRepositoryImpl implements DeliveryPointRepository {
     List<DeliveryPoint> points = new ArrayList<>();
 
     @Override
@@ -17,6 +17,7 @@ public class DeliveryPointRepositoryImpl implements DeliveryPointRepository{
     public void addList(List<DeliveryPoint> deliveryPoints) {
         points.addAll(deliveryPoints);
     }
+
     @Override
     public DeliveryPoint getByNumber(int number) {
         return points.get(number - 1);

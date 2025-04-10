@@ -6,13 +6,8 @@ import repository.UserRepositoryImpl;
 
 import java.util.UUID;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     UserRepository userRepository = new UserRepositoryImpl();
-
-    @Override
-    public void add(User user) {
-        userRepository.add(user);
-    }
 
     @Override
     public User getById(UUID id) {

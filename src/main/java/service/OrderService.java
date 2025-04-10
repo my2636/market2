@@ -7,14 +7,10 @@ import java.util.List;
 import java.util.UUID;
 
 
-public interface OrderService {
+public interface OrderService extends Showable<Order> {
     void createOrder(UUID userId, UUID deliveryPointId, List<Item> itemList);
-
-    void showOrdersByUserId(UUID userId);
 
     Order getOrderByNumber(int number);
 
-    List<Order> getOrdersByUserId(UUID userId);
-
-    List<Order> getOrders();
+    List<Order> getList();
 }

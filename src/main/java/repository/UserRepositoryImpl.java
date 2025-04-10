@@ -11,20 +11,6 @@ public class UserRepositoryImpl implements UserRepository {
     List<User> users = new ArrayList<>(0);
 
     @Override
-    public void add(User user) {
-        users.add(user);
-    }
-
-    @Override
-    public User getById(UUID id) {
-        return users
-                .stream()
-                .filter(x -> id.equals(x.getId()))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Пользователь с ID " + id + " не найден"));
-    }
-
-    @Override
     public User getByNameOrAdd(String name) {
         if (users.isEmpty()) {
             User user = new User(name);

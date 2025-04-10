@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// предполагается возможность торговой площадки для нескольких продавцов
 
+//отдельная
 public class MarketItemServiceImpl implements ItemService {
 
     ItemRepository marketItemRepository;
@@ -26,18 +26,7 @@ public class MarketItemServiceImpl implements ItemService {
         marketItemRepository.addItemList(addingList);
     }
 
-    public void showItems() {
-        List<Item> items = marketItemRepository.getList();
-        if (items.isEmpty()) {
-            System.out.println("Список пуст");
-        }
-        for (Item i : items) {
-            System.out.println("\n" + (items.indexOf(i) + 1) + ". " + i.toString());
-        }
-    }
-
-
-    public List getList() {
+    public List<Item> getList() {
         return marketItemRepository.getList();
     }
 
@@ -68,6 +57,4 @@ public class MarketItemServiceImpl implements ItemService {
     public void deleteList(List<Item> deletingList) {
         marketItemRepository.deleteList(deletingList);
     }
-
-
 }
